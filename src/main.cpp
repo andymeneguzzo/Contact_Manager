@@ -1,7 +1,11 @@
+#include "Contact.h"
+#include "ContactManager.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
 
+/*
 class Contact {
 public:
     Contact(const std::string& name, const std::string& phone, const std::string& email)
@@ -16,7 +20,9 @@ private:
     std::string phone;
     std::string email;
 };
+*/
 
+/*
 class ContactManager {
 public:
     void addContact(const std::string& name, const std::string& phone, const std::string& email) {
@@ -33,10 +39,12 @@ public:
 private:
     std::vector<Contact> contacts;
 };
+*/
 
 int main() {
     ContactManager manager;
 
+    manager.addContact("John Doe", "555-555-5555", "john.doe@example.com");
     std::cout << "Contact List:" << std::endl;
     manager.displayContacts();
 
