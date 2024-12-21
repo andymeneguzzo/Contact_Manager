@@ -7,7 +7,7 @@ class Contact {
 public:
     Contact(const std::string& name, const std::string& phone, const std::string& email);
 
-    void display() const;
+    void to_string() const;
 
 private:
     std::string name;

@@ -7,7 +7,7 @@ void ContactManager::addContact(const std::string& name, const std::string& phon
 
 void ContactManager::displayContacts() const {
     for (const auto& contact : contacts) {
-        contact.display();
+        contact.to_string();
         std::cout << "-------------------" << std::endl;
     }
 }
