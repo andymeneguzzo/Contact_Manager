@@ -2,8 +2,6 @@
 #include "ContactManager.h"
 
 #include <iostream>
-#include <vector>
-#include <string>
 
 /*
 class Contact {
