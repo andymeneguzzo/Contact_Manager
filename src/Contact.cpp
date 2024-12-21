@@ -12,6 +12,14 @@ std::string Contact::getName() const {
     return name;
 }
 
+std::string Contact::getPhone() const {
+    return phone;
+}
+
+std::string Contact::getEmail() const {
+    return email;
+}
+
 void Contact::setName(const std::string& name) {
     this->name = name;
 }

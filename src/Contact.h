@@ -9,6 +9,8 @@ public:
 
     void to_string() const;
     std::string getName() const;
+    std::string getPhone() const;
+    std::string getEmail() const;
     void setName(const std::string& name);
     void setPhone(const std::string& phone);
     void setEmail(const std::string& email);
