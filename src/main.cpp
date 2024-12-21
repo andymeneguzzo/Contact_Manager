@@ -7,7 +7,7 @@ int main() {
     ContactManager manager;
 
     manager.addContact("John Doe", "555-555-5555", "john.doe@example.com");
-    std::cout << "Contact List:" << std::endl;
+    std::cout << "Contact List (before modification):" << std::endl;
     manager.displayContacts();
 
     return 0;

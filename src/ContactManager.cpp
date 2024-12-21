@@ -6,6 +6,12 @@ void ContactManager::addContact(const std::string& name, const std::string& phon
 }
 
 void ContactManager::displayContacts() const {
+    // check if contacts vector is empty
+    if (contacts.empty()) {
+        std::cout << "No contacts to display." << std::endl;
+        return;
+    }
+
     for (const auto& contact : contacts) {
         contact.to_string();
         std::cout << "-------------------" << std::endl;
