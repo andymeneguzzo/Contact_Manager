@@ -6,3 +6,5 @@
 3. Remove contacts
 4. Show contacts
 5. Search contacts (by name, phone number, email)
+6. Save/Load contacts to/from file "contacts.txt"
+7. TODO: SQLite Database implementation
