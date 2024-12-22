@@ -21,6 +21,14 @@ public:
     void loadContacts(const std::string& filename);
     void saveContacts(const std::string& filename) const;
 
+    // New methods for sorting and filtering
+    void sortByName();
+    void sortByPhone();
+    void sortByEmail();
+    std::vector<Contact> filterByName(const std::string& name) const;
+    std::vector<Contact> filterByPhone(const std::string& phone) const;
+    std::vector<Contact> filterByEmail(const std::string& email) const;
+
 private:
     std::vector<Contact> contacts;
     std::string dataFile = "contacts.txt";

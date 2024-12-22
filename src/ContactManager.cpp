@@ -93,3 +93,47 @@ void ContactManager::saveContacts(const std::string& filename) const {
 
     file.close();
 }
+
+// Sorting methods
+void ContactManager::sortByName() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getName() < b.getName();
+    });
+}
+
+void ContactManager::sortByPhone() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getPhone() < b.getPhone();
+    });
+}
+
+void ContactManager::sortByEmail() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getEmail() < b.getEmail();
+    });
+}
+
+// Filtering methods
+std::vector<Contact> ContactManager::filterByName(const std::string& name) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&name](const Contact& contact) {
+        return contact.getName() == name;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByPhone(const std::string& phone) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&phone](const Contact& contact) {
+        return contact.getPhone() == phone;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByEmail(const std::string& email) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&email](const Contact& contact) {
+        return contact.getEmail() == email;
+    });
+    return result;
+}
