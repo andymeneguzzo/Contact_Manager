@@ -8,12 +8,12 @@ ContactManager::ContactManager() {}
 
 ContactManager::~ContactManager() {}
 
-void ContactManager::addContact(const std::string& name, const std::string& phone, const std::string& email) {
-    contacts.emplace_back(name, phone, email);
+void ContactManager::addContact(const std::string& name, const std::string& phone, const std::string& email, const std::string& dob, const std::string& gender, const std::string& status, const std::string& notes) {
+    contacts.emplace_back(name, phone, email, dob, gender, status, notes);
     saveContacts(dataFile);
     Database db("contacts.db");
     db.connect();
-    db.addContact(name, phone, email);
+    db.addContact(name, phone, email, dob, gender, status, notes);
     db.disconnect();
 }
 
@@ -29,7 +29,7 @@ void ContactManager::displayContacts() const {
     }
 }
 
-bool ContactManager::editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail) {
+bool ContactManager::editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail, const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes) {
     auto it = std::find_if(contacts.begin(), contacts.end(), [&oldName](const Contact& contact) {
         return contact.getName() == oldName;
     });
@@ -38,10 +38,14 @@ bool ContactManager::editContact(const std::string& oldName, const std::string& 
         it->setName(newName);
         it->setPhone(newPhone);
         it->setEmail(newEmail);
+        it->setDob(newDob);
+        it->setGender(newGender);
+        it->setStatus(newStatus);
+        it->setNotes(newNotes);
         saveContacts(dataFile);
         Database db("contacts.db");
         db.connect();
-        db.updateContact(oldName, newName, newPhone, newEmail);
+        db.updateContact(oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes);
         db.disconnect();
         return true;
     }
@@ -72,9 +76,9 @@ void ContactManager::loadContacts(const std::string& filename) {
         return;
     }
 
-    std::string name, phone, email;
-    while (file >> name >> phone >> email) {
-        contacts.emplace_back(name, phone, email);
+    std::string name, phone, email, dob, gender, status, notes;
+    while (file >> name >> phone >> email >> dob >> gender >> status >> notes) {
+        contacts.emplace_back(name, phone, email, dob, gender, status, notes);
     }
 
     file.close();
@@ -88,7 +92,7 @@ void ContactManager::saveContacts(const std::string& filename) const {
     }
 
     for (const auto& contact : contacts) {
-        file << contact.getName() << " " << contact.getPhone() << " " << contact.getEmail() << std::endl;
+        file << contact.getName() << " " << contact.getPhone() << " " << contact.getEmail() << " " << contact.getDob() << " " << contact.getGender() << " " << contact.getStatus() << " " << contact.getNotes() << std::endl;
     }
 
     file.close();
@@ -113,6 +117,24 @@ void ContactManager::sortByEmail() {
     });
 }
 
+void ContactManager::sortByDob() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getDob() < b.getDob();
+    });
+}
+
+void ContactManager::sortByGender() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getGender() < b.getGender();
+    });
+}
+
+void ContactManager::sortByStatus() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getStatus() < b.getStatus();
+    });
+}
+
 // Filtering methods
 std::vector<Contact> ContactManager::filterByName(const std::string& name) const {
     std::vector<Contact> result;
@@ -134,6 +156,30 @@ std::vector<Contact> ContactManager::filterByEmail(const std::string& email) con
     std::vector<Contact> result;
     std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&email](const Contact& contact) {
         return contact.getEmail() == email;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByDob(const std::string& dob) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&dob](const Contact& contact) {
+        return contact.getDob() == dob;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByGender(const std::string& gender) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&gender](const Contact& contact) {
+        return contact.getGender() == gender;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByStatus(const std::string& status) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&status](const Contact& contact) {
+        return contact.getStatus() == status;
     });
     return result;
 }
