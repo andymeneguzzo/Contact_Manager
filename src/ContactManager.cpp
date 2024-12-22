@@ -8,8 +8,14 @@ ContactManager::ContactManager() {}
 
 ContactManager::~ContactManager() {}
 
-void ContactManager::addContact(const std::string& name, const std::string& phone, const std::string& email, const std::string& dob, const std::string& gender, const std::string& status, const std::string& notes) {
-    contacts.emplace_back(name, phone, email, dob, gender, status, notes);
+void ContactManager::addContact(const std::string& name, const std::string& phone, 
+    const std::string& email, const std::string& dob, const std::string& gender, 
+    const std::string& status, const std::string& notes, const std::string& profession,
+    const std::string& company, const std::string& jobPosition,
+    const std::string& companyAddress, const std::string& officePhone) {
+    
+    contacts.emplace_back(name, phone, email, dob, gender, status, notes,
+                         profession, company, jobPosition, companyAddress, officePhone);
     saveContacts(dataFile);
     Database db("contacts.db");
     db.connect();
