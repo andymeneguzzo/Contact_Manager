@@ -24,6 +24,9 @@ int main() {
     std::string name, phone, email;
     char choice;
 
+
+
+/*
     // Input data for new contacts while choice is 's' or 'S'
     do {
         std::cout << "Inserisci il nome del contatto: ";
@@ -40,10 +43,27 @@ int main() {
         std::cin.ignore(); // Ignora il carattere newline rimasto nel buffer
 
     } while (choice == 's' || choice == 'S');
+*/
 
     // Once finished adding contacts, display contacts
     std::cout << "Contact List:" << std::endl;
     manager.displayContacts();
+
+    // Sort and display contacts by name
+    std::cout << "Sorted by Name:" << std::endl;
+    manager.sortByName();
+    manager.displayContacts();
+
+    // Sort and display contacts by phone
+    std::cout << "Sorted by Phone:" << std::endl;
+    manager.sortByPhone();
+    manager.displayContacts();
+
+    // Sort and display contacts by email
+    std::cout << "Sorted by Email:" << std::endl;
+    manager.sortByEmail();
+    manager.displayContacts();
+    std::cout << "-------------------" << std::endl;
 
     return 0;
 }
