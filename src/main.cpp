@@ -1,14 +1,24 @@
 #include "Contact.h"
 #include "ContactManager.h"
+#include "Database.h"
 
 #include <iostream>
 #include <string>
 
 int main() {
     ContactManager manager;
-    manager.loadContacts("contacts.txt");
-    const Contact* contact = nullptr;
+    Database db("contacts.db");
 
+    // Initialize database and load contacts
+    db.connect();
+    manager.loadContacts("contacts.txt");
+    auto contacts = db.getAllContacts();
+    for (const auto& contact : contacts) {
+        manager.addContact(contact.getName(), contact.getPhone(), contact.getEmail());
+    }
+    db.disconnect();
+
+    const Contact* contact = nullptr;
     std::string name, phone, email;
     char choice;
 
@@ -30,38 +40,6 @@ int main() {
 
     std::cout << "Contact List:" << std::endl;
     manager.displayContacts();
-
-/*
-    // Test ricerca per nome
-    std::string searchName = "Alice Wonderland";
-    contact = manager.searchByName(searchName);
-    if (contact) {
-        std::cout << "Found contact by name (" << searchName << "):" << std::endl;
-        contact->to_string();
-    } else {
-        std::cout << "Contact not found by name (" << searchName << ")." << std::endl;
-    }
-
-    // Test ricerca per numero di telefono
-    std::string searchPhone = "555-555-5560";
-    contact = manager.searchByPhone(searchPhone);
-    if (contact) {
-        std::cout << "Found contact by phone (" << searchPhone << "):" << std::endl;
-        contact->to_string();
-    } else {
-        std::cout << "Contact not found by phone (" << searchPhone << ")." << std::endl;
-    }
-
-    // Test ricerca per email
-    std::string searchEmail = "eve.online@example.com";
-    contact = manager.searchByEmail(searchEmail);
-    if (contact) {
-        std::cout << "Found contact by email (" << searchEmail << "):" << std::endl;
-        contact->to_string();
-    } else {
-        std::cout << "Contact not found by email (" << searchEmail << ")." << std::endl;
-    }
-*/
 
     return 0;
 }

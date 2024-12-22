@@ -4,9 +4,13 @@
 #include <vector>
 #include <string>
 #include "Contact.h"
+#include "Database.h"
 
 class ContactManager {
 public:
+    ContactManager();
+    ~ContactManager();
+
     void addContact(const std::string& name, const std::string& phone, const std::string& email);
     void displayContacts() const;
     bool editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail);
@@ -19,6 +23,7 @@ public:
 
 private:
     std::vector<Contact> contacts;
+    // Database db;
     std::string dataFile = "contacts.txt";
 };
 
