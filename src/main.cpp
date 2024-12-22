@@ -2,25 +2,36 @@
 #include "ContactManager.h"
 
 #include <iostream>
+#include <string>
 
 int main() {
     ContactManager manager;
     manager.loadContacts("contacts.txt");
     const Contact* contact = nullptr;
-/*
-    // Aggiungi 8 contatti di esempio
-    manager.addContact("John Doe", "555-555-5555", "john.doe@example.com");
-    manager.addContact("Jane Austen", "555-555-5556", "jane.austen@example.com");
-    manager.addContact("Alice Wonderland", "555-555-5557", "alice.wonderland@example.com");
-    manager.addContact("Bob Builder", "555-555-5558", "bob.builder@example.com");
-    manager.addContact("Charlie Brown", "555-555-5559", "charlie.brown@example.com");
-    manager.addContact("David Copperfield", "555-555-5560", "david.copperfield@example.com");
-    manager.addContact("Eve Online", "555-555-5561", "eve.online@example.com");
-    manager.addContact("Frank Sinatra", "555-555-5562", "frank.sinatra@example.com");
-*/
+
+    std::string name, phone, email;
+    char choice;
+
+    do {
+        std::cout << "Inserisci il nome del contatto: ";
+        std::getline(std::cin, name);
+        std::cout << "Inserisci il numero di telefono del contatto: ";
+        std::getline(std::cin, phone);
+        std::cout << "Inserisci l'email del contatto: ";
+        std::getline(std::cin, email);
+
+        manager.addContact(name, phone, email);
+
+        std::cout << "Vuoi aggiungere un altro contatto? (s/n): ";
+        std::cin >> choice;
+        std::cin.ignore(); // Ignora il carattere newline rimasto nel buffer
+
+    } while (choice == 's' || choice == 'S');
+
     std::cout << "Contact List:" << std::endl;
     manager.displayContacts();
 
+/*
     // Test ricerca per nome
     std::string searchName = "Alice Wonderland";
     contact = manager.searchByName(searchName);
@@ -50,6 +61,7 @@ int main() {
     } else {
         std::cout << "Contact not found by email (" << searchEmail << ")." << std::endl;
     }
+*/
 
     return 0;
 }
