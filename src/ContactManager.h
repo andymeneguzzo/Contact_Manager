@@ -23,7 +23,6 @@ public:
 
 private:
     std::vector<Contact> contacts;
-    // Database db;
     std::string dataFile = "contacts.txt";
 };
 
