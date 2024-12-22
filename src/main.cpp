@@ -5,27 +5,33 @@
 #include <string>
 
 int main() {
+    // Create a ContactManager object to manage contacts
     ContactManager manager;
+    
+    // Create a Database object and connect to the database
     Database db("contacts.db");
     db.connect();
 
     int choice;
     do {
+        // Display the main menu
         std::cout << "\n=== Contact Manager ===\n"
-                  << "1. Inserisci nuovo contatto\n"
-                  << "2. Visualizza tutti i contatti\n"
-                  << "3. Ordina contatti\n"
-                  << "4. Filtra contatti\n"
-                  << "0. Esci\n"
+                  << "1. Inserisci nuovo contatto\n"  // Insert new contact
+                  << "2. Visualizza tutti i contatti\n"  // View all contacts
+                  << "3. Ordina contatti\n"  // Sort contacts
+                  << "4. Filtra contatti\n"  // Filter contacts
+                  << "0. Esci\n"  // Exit
                   << "Scelta: ";
         std::cin >> choice;
-        std::cin.ignore();
+        std::cin.ignore();  // Ignore the newline character left in the input buffer
 
         switch (choice) {
             case 1: {
+                // Variables to store contact details
                 std::string name, phone, email, dob, gender, status, notes;
                 std::string profession, company, jobPosition, companyAddress, officePhone;
 
+                // Prompt user to enter contact details
                 std::cout << "\n=== Inserimento Nuovo Contatto ===\n";
                 std::cout << "Nome: ";
                 std::getline(std::cin, name);
@@ -52,24 +58,28 @@ int main() {
                 std::cout << "Telefono ufficio: ";
                 std::getline(std::cin, officePhone);
 
+                // Add the new contact to the manager
                 manager.addContact(name, phone, email, dob, gender, status, notes,
                                 profession, company, jobPosition, companyAddress, officePhone);
                 break;
             }
             case 2: {
+                // Display all contacts
                 std::cout << "\n=== Lista Contatti ===\n";
                 manager.displayContacts();
                 break;
             }
             case 3: {
+                // Prompt user to choose sorting criteria
                 int sortChoice;
                 std::cout << "\n=== Ordinamento ===\n"
-                          << "1. Per professione\n"
-                          << "2. Per azienda\n"
-                          << "3. Per posizione lavorativa\n"
+                          << "1. Per professione\n"  // By profession
+                          << "2. Per azienda\n"  // By company
+                          << "3. Per posizione lavorativa\n"  // By job position
                           << "Scelta: ";
                 std::cin >> sortChoice;
 
+                // Sort contacts based on user's choice
                 switch (sortChoice) {
                     case 1:
                         manager.sortByProfession();
@@ -81,23 +91,27 @@ int main() {
                         manager.sortByJobPosition();
                         break;
                 }
+                // Display sorted contacts
                 manager.displayContacts();
                 break;
             }
             case 4: {
+                // Prompt user to choose filtering criteria
                 int filterChoice;
                 std::string filterValue;
                 std::cout << "\n=== Filtro ===\n"
-                          << "1. Per professione\n"
-                          << "2. Per azienda\n"
-                          << "3. Per posizione lavorativa\n"
+                          << "1. Per professione\n"  // By profession
+                          << "2. Per azienda\n"  // By company
+                          << "3. Per posizione lavorativa\n"  // By job position
                           << "Scelta: ";
                 std::cin >> filterChoice;
-                std::cin.ignore();
+                std::cin.ignore();  // Ignore the newline character left in the input buffer
 
+                // Prompt user to enter the value to filter by
                 std::cout << "Valore da cercare: ";
                 std::getline(std::cin, filterValue);
 
+                // Filter contacts based on user's choice
                 std::vector<Contact> filteredContacts;
                 switch (filterChoice) {
                     case 1:
@@ -111,6 +125,7 @@ int main() {
                         break;
                 }
 
+                // Display filtered contacts
                 std::cout << "\n=== Risultati Filtro ===\n";
                 for (const auto& contact : filteredContacts) {
                     contact.to_string();
@@ -119,8 +134,9 @@ int main() {
                 break;
             }
         }
-    } while (choice != 0);
+    } while (choice != 0);  // Repeat until user chooses to exit
 
+    // Disconnect from the database
     db.disconnect();
     return 0;
 }
