@@ -33,7 +33,12 @@ void Database::createTable() {
                       "dob TEXT,"
                       "gender TEXT,"
                       "status TEXT,"
-                      "notes TEXT);";
+                      "notes TEXT,"
+                      "profession TEXT,"
+                      "company TEXT,"
+                      "jobPosition TEXT,"
+                      "companyAddress TEXT,"
+                      "officePhone TEXT);";
 
     char* errMsg;
     if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
@@ -43,8 +48,13 @@ void Database::createTable() {
 }
 
 bool Database::addContact(const std::string& name, const std::string& phone, const std::string& email,
-                          const std::string& dob, const std::string& gender, const std::string& status, const std::string& notes) {
-    const char* sql = "INSERT INTO contacts (name, phone, email, dob, gender, status, notes) VALUES (?, ?, ?, ?, ?, ?, ?);";
+                          const std::string& dob, const std::string& gender, const std::string& status,
+                          const std::string& notes, const std::string& profession, const std::string& company,
+                          const std::string& jobPosition, const std::string& companyAddress,
+                          const std::string& officePhone) {
+    const char* sql = "INSERT INTO contacts (name, phone, email, dob, gender, status, notes, "
+                      "profession, company, jobPosition, companyAddress, officePhone) "
+                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     sqlite3_stmt* stmt;
 
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
@@ -59,6 +69,11 @@ bool Database::addContact(const std::string& name, const std::string& phone, con
     sqlite3_bind_text(stmt, 5, gender.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 6, status.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 7, notes.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 8, profession.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 9, company.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 10, jobPosition.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 11, companyAddress.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 12, officePhone.c_str(), -1, SQLITE_STATIC);
 
     if (sqlite3_step(stmt) != SQLITE_DONE) {
         std::cerr << "Failed to execute statement: " << sqlite3_errmsg(db) << std::endl;
@@ -71,8 +86,11 @@ bool Database::addContact(const std::string& name, const std::string& phone, con
 }
 
 bool Database::updateContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail,
-                             const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes) {
-    const char* sql = "UPDATE contacts SET name = ?, phone = ?, email = ?, dob = ?, gender = ?, status = ?, notes = ? WHERE name = ?;";
+                             const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes,
+                             const std::string& newProfession, const std::string& newCompany, const std::string& newJobPosition,
+                             const std::string& newCompanyAddress, const std::string& newOfficePhone) {
+    const char* sql = "UPDATE contacts SET name = ?, phone = ?, email = ?, dob = ?, gender = ?, status = ?, notes = ?, "
+                      "profession = ?, company = ?, jobPosition = ?, companyAddress = ?, officePhone = ? WHERE name = ?;";
     sqlite3_stmt* stmt;
 
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
@@ -87,7 +105,12 @@ bool Database::updateContact(const std::string& oldName, const std::string& newN
     sqlite3_bind_text(stmt, 5, newGender.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 6, newStatus.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 7, newNotes.c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 8, oldName.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 8, newProfession.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 9, newCompany.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 10, newJobPosition.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 11, newCompanyAddress.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 12, newOfficePhone.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 13, oldName.c_str(), -1, SQLITE_STATIC);
 
     if (sqlite3_step(stmt) != SQLITE_DONE) {
         std::cerr << "Failed to execute statement: " << sqlite3_errmsg(db) << std::endl;
@@ -122,7 +145,8 @@ bool Database::removeContact(const std::string& name) {
 
 std::vector<Contact> Database::getAllContacts() {
     std::vector<Contact> contacts;
-    const char* sql = "SELECT name, phone, email, dob, gender, status, notes FROM contacts;";
+    const char* sql = "SELECT name, phone, email, dob, gender, status, notes, "
+                     "profession, company, jobPosition, companyAddress, officePhone FROM contacts;";
     sqlite3_stmt* stmt;
 
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
@@ -138,7 +162,13 @@ std::vector<Contact> Database::getAllContacts() {
         std::string gender = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
         std::string status = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
         std::string notes = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 6));
-        contacts.emplace_back(name, phone, email, dob, gender, status, notes);
+        std::string profession = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 7));
+        std::string company = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 8));
+        std::string jobPosition = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 9));
+        std::string companyAddress = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 10));
+        std::string officePhone = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 11));
+        contacts.emplace_back(name, phone, email, dob, gender, status, notes,
+                              profession, company, jobPosition, companyAddress, officePhone);
     }
 
     sqlite3_finalize(stmt);
