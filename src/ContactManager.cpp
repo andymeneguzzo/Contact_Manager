@@ -152,6 +152,24 @@ void ContactManager::sortByStatus() {
     });
 }
 
+void ContactManager::sortByProfession() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getProfession() < b.getProfession();
+    });
+}
+
+void ContactManager::sortByCompany() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getCompany() < b.getCompany();
+    });
+}
+
+void ContactManager::sortByJobPosition() {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getJobPosition() < b.getJobPosition();
+    });
+}
+
 // Filtering methods
 std::vector<Contact> ContactManager::filterByName(const std::string& name) const {
     std::vector<Contact> result;
@@ -197,6 +215,33 @@ std::vector<Contact> ContactManager::filterByStatus(const std::string& status) c
     std::vector<Contact> result;
     std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&status](const Contact& contact) {
         return contact.getStatus() == status;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByProfession(const std::string& profession) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), 
+        [&profession](const Contact& contact) {
+            return contact.getProfession() == profession;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByCompany(const std::string& company) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), 
+        [&company](const Contact& contact) {
+            return contact.getCompany() == company;
+    });
+    return result;
+}
+
+std::vector<Contact> ContactManager::filterByJobPosition(const std::string& position) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), 
+        [&position](const Contact& contact) {
+            return contact.getJobPosition() == position;
     });
     return result;
 }
