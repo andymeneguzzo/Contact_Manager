@@ -12,7 +12,10 @@ public:
     ~ContactManager();
 
     void addContact(const std::string& name, const std::string& phone, const std::string& email,
-                    const std::string& dob, const std::string& gender, const std::string& status, const std::string& notes);
+                    const std::string& dob, const std::string& gender, const std::string& status, 
+                    const std::string& notes, const std::string& profession = "", 
+                    const std::string& company = "", const std::string& jobPosition = "",
+                    const std::string& companyAddress = "", const std::string& officePhone = "");
     void displayContacts() const;
     bool editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail,
                      const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes);
