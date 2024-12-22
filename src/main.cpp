@@ -5,8 +5,9 @@
 
 int main() {
     ContactManager manager;
+    manager.loadContacts("contacts.txt");
     const Contact* contact = nullptr;
-
+/*
     // Aggiungi 8 contatti di esempio
     manager.addContact("John Doe", "555-555-5555", "john.doe@example.com");
     manager.addContact("Jane Austen", "555-555-5556", "jane.austen@example.com");
@@ -16,7 +17,7 @@ int main() {
     manager.addContact("David Copperfield", "555-555-5560", "david.copperfield@example.com");
     manager.addContact("Eve Online", "555-555-5561", "eve.online@example.com");
     manager.addContact("Frank Sinatra", "555-555-5562", "frank.sinatra@example.com");
-
+*/
     std::cout << "Contact List:" << std::endl;
     manager.displayContacts();
 

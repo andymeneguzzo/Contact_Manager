@@ -1,9 +1,11 @@
 #include "ContactManager.h"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 
 void ContactManager::addContact(const std::string& name, const std::string& phone, const std::string& email) {
     contacts.emplace_back(name, phone, email);
+    saveContacts(dataFile);
 }
 
 void ContactManager::displayContacts() const {
@@ -27,6 +29,7 @@ bool ContactManager::editContact(const std::string& oldName, const std::string& 
         it->setName(newName);
         it->setPhone(newPhone);
         it->setEmail(newEmail);
+        saveContacts(dataFile);
         return true;
     }
     return false;
@@ -39,6 +42,7 @@ bool ContactManager::removeContact(const std::string& name) {
 
     if (it != contacts.end()) {
         contacts.erase(it, contacts.end());
+        saveContacts(dataFile);
         return true;
     }
     return false;
@@ -75,4 +79,31 @@ const Contact* ContactManager::searchByEmail(const std::string& email) const {
         return &(*it);
     }
     return nullptr;
+}
+
+void ContactManager::loadContacts(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Could not open file " << filename << std::endl;
+        return;
+    }
+
+    std::string name, phone, email;
+    while (file >> name >> phone >> email) {
+        contacts.emplace_back(name, phone, email);
+    }
+    file.close();
+}
+
+void ContactManager::saveContacts(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Could not open file " << filename << std::endl;
+        return;
+    }
+
+    for (const auto& contact : contacts) {
+        file << contact.getName() << " " << contact.getPhone() << " " << contact.getEmail() << std::endl;
+    }
+    file.close();
 }
