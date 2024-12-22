@@ -4,6 +4,27 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
+
+// Function to generate a random string of given length
+std::string generateRandomString(size_t length) {
+    const std::string characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    std::string randomString;
+    for (size_t i = 0; i < length; ++i) {
+        randomString += characters[rand() % characters.size()];
+    }
+    return randomString;
+}
+
+// Function to generate a random phone number
+std::string generateRandomPhoneNumber() {
+    std::string phoneNumber = "+39 ";
+    for (int i = 0; i < 10; ++i) {
+        phoneNumber += std::to_string(rand() % 10);
+    }
+    return phoneNumber;
+}
 
 int main() {
     // Declare manager and database objects
@@ -24,8 +45,20 @@ int main() {
     std::string name, phone, email;
     char choice;
 
+    // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0)));
+
+    // Generate 10 random contacts
+    for (int i = 0; i < 10; ++i) {
+        name = generateRandomString(8);
+        phone = generateRandomPhoneNumber();
+        email = generateRandomString(5) + "@andy.com";
+        manager.addContact(name, phone, email);
+    }
 
 
+
+// CODE OMITTED TO TEST THE NEW FUNCTIONALITY WITH SINGULAR TESTS
 /*
     // Input data for new contacts while choice is 's' or 'S'
     do {
