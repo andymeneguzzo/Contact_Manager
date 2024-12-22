@@ -6,6 +6,7 @@
 #include <string>
 
 int main() {
+    // Declare manager and database objects
     ContactManager manager;
     Database db("contacts.db");
 
@@ -18,10 +19,12 @@ int main() {
     }
     db.disconnect();
 
+    // Declare variables
     const Contact* contact = nullptr;
     std::string name, phone, email;
     char choice;
 
+    // Input data for new contacts while choice is 's' or 'S'
     do {
         std::cout << "Inserisci il nome del contatto: ";
         std::getline(std::cin, name);
@@ -38,6 +41,7 @@ int main() {
 
     } while (choice == 's' || choice == 'S');
 
+    // Once finished adding contacts, display contacts
     std::cout << "Contact List:" << std::endl;
     manager.displayContacts();
 

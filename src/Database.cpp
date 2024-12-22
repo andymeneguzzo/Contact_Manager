@@ -8,6 +8,7 @@ Database::~Database() {
     disconnect();
 }
 
+// Connette a database, assicurandosi che la connessione sia stata stabilita correttamente (SQLite_OK).
 bool Database::connect() {
     if (sqlite3_open(dbName.c_str(), &db) != SQLITE_OK) {
         std::cerr << "Could not open database: " << sqlite3_errmsg(db) << std::endl;
@@ -17,6 +18,7 @@ bool Database::connect() {
     return true;
 }
 
+// Disconnette il database.
 void Database::disconnect() {
     if (db) {
         sqlite3_close(db);
@@ -24,6 +26,7 @@ void Database::disconnect() {
     }
 }
 
+// Esegue una query SQL.
 void Database::createTable() {
     const char* sql = "CREATE TABLE IF NOT EXISTS contacts ("
                       "id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -38,6 +41,7 @@ void Database::createTable() {
     }
 }
 
+// Aggiunge un contatto al database.
 bool Database::addContact(const std::string& name, const std::string& phone, const std::string& email) {
     const char* sql = "INSERT INTO contacts (name, phone, email) VALUES (?, ?, ?);";
     sqlite3_stmt* stmt;
@@ -61,6 +65,7 @@ bool Database::addContact(const std::string& name, const std::string& phone, con
     return true;
 }
 
+// Aggiorna un contatto nel database.
 bool Database::updateContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail) {
     const char* sql = "UPDATE contacts SET name = ?, phone = ?, email = ? WHERE name = ?;";
     sqlite3_stmt* stmt;
@@ -85,6 +90,7 @@ bool Database::updateContact(const std::string& oldName, const std::string& newN
     return true;
 }
 
+// Rimuove un contatto dal database.
 bool Database::removeContact(const std::string& name) {
     const char* sql = "DELETE FROM contacts WHERE name = ?;";
     sqlite3_stmt* stmt;
@@ -106,6 +112,7 @@ bool Database::removeContact(const std::string& name) {
     return true;
 }
 
+// Restituisce tutti i contatti dal database.
 std::vector<Contact> Database::getAllContacts() {
     std::vector<Contact> contacts;
     const char* sql = "SELECT name, phone, email FROM contacts;";
