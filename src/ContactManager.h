@@ -40,6 +40,16 @@ public:
     std::vector<Contact> filterByGender(const std::string& gender) const;
     std::vector<Contact> filterByStatus(const std::string& status) const;
 
+    // Additional sorting methods
+    void sortByProfession();
+    void sortByCompany();
+    void sortByJobPosition();
+
+    // Additional filtering methods
+    std::vector<Contact> filterByProfession(const std::string& profession) const;
+    std::vector<Contact> filterByCompany(const std::string& company) const;
+    std::vector<Contact> filterByJobPosition(const std::string& position) const;
+
 private:
     std::vector<Contact> contacts;
     std::string dataFile = "contacts.txt";
