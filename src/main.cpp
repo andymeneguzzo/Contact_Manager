@@ -82,21 +82,28 @@ int main() {
     std::cout << "Contact List:" << std::endl;
     manager.displayContacts();
 
+    std::cout << "**** SORTING BY NAME ****" << std::endl;
+
     // Sort and display contacts by name
     std::cout << "Sorted by Name:" << std::endl;
     manager.sortByName();
     manager.displayContacts();
+
+    std::cout << "**** SORTING BY PHONE ****" << std::endl;
 
     // Sort and display contacts by phone
     std::cout << "Sorted by Phone:" << std::endl;
     manager.sortByPhone();
     manager.displayContacts();
 
+    std::cout << "**** SORTING BY EMAIL ****" << std::endl;
+
     // Sort and display contacts by email
     std::cout << "Sorted by Email:" << std::endl;
     manager.sortByEmail();
     manager.displayContacts();
-    std::cout << "-------------------" << std::endl;
+
+    std::cout << "End of execution..." << std::endl;
 
     return 0;
 }
