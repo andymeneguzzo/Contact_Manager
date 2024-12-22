@@ -11,9 +11,11 @@ public:
     ContactManager();
     ~ContactManager();
 
-    void addContact(const std::string& name, const std::string& phone, const std::string& email);
+    void addContact(const std::string& name, const std::string& phone, const std::string& email,
+                    const std::string& dob, const std::string& gender, const std::string& status, const std::string& notes);
     void displayContacts() const;
-    bool editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail);
+    bool editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail,
+                     const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes);
     bool removeContact(const std::string& name);
     const Contact* searchByName(const std::string& name) const;
     const Contact* searchByPhone(const std::string& phone) const;
@@ -25,9 +27,15 @@ public:
     void sortByName();
     void sortByPhone();
     void sortByEmail();
+    void sortByDob();
+    void sortByGender();
+    void sortByStatus();
     std::vector<Contact> filterByName(const std::string& name) const;
     std::vector<Contact> filterByPhone(const std::string& phone) const;
     std::vector<Contact> filterByEmail(const std::string& email) const;
+    std::vector<Contact> filterByDob(const std::string& dob) const;
+    std::vector<Contact> filterByGender(const std::string& gender) const;
+    std::vector<Contact> filterByStatus(const std::string& status) const;
 
 private:
     std::vector<Contact> contacts;
