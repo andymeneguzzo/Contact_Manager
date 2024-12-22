@@ -7,4 +7,9 @@
 4. Show contacts
 5. Search contacts (by name, phone number, email)
 6. Save/Load contacts to/from file "contacts.txt"
-7. TODO: SQLite Database implementation
+
+# TODOs:
+1. SQLite implementation
+2. Categories and groups of contacts
+3. Sorting and filtering by name/phone/email
+4. Additional data for contacts
