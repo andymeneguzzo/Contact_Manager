@@ -96,9 +96,20 @@ void ContactManager::saveContacts(const std::string& filename) const {
         std::cerr << "Could not open file: " << filename << std::endl;
         return;
     }
-
+    
     for (const auto& contact : contacts) {
-        file << contact.getName() << " " << contact.getPhone() << " " << contact.getEmail() << " " << contact.getDob() << " " << contact.getGender() << " " << contact.getStatus() << " " << contact.getNotes() << std::endl;
+        file << contact.getName() << " "
+             << contact.getPhone() << " "
+             << contact.getEmail() << " "
+             << contact.getDob() << " "
+             << contact.getGender() << " "
+             << contact.getStatus() << " "
+             << contact.getNotes() << " "
+             << contact.getProfession() << " "
+             << contact.getCompany() << " "
+             << contact.getJobPosition() << " "
+             << contact.getCompanyAddress() << " "
+             << contact.getOfficePhone() << std::endl;
     }
 
     file.close();
