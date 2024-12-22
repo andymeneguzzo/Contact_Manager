@@ -51,7 +51,7 @@ bool ContactManager::editContact(const std::string& oldName, const std::string& 
         saveContacts(dataFile);
         Database db("contacts.db");
         db.connect();
-        db.updateContact(oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes);
+        db.updateContact(oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes, it->getProfession(), it->getCompany(), it->getJobPosition(), it->getCompanyAddress(), it->getOfficePhone());
         db.disconnect();
         return true;
     }
