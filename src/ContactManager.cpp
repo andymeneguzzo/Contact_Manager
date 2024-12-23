@@ -43,18 +43,19 @@ bool ContactManager::editContact(const std::string& oldName, const std::string& 
     });
 
     if (it != contacts.end()) {
-        it->setName(newName);
-        it->setPhone(newPhone);
-        it->setEmail(newEmail);
-        it->setDob(newDob);
-        it->setGender(newGender);
-        it->setStatus(newStatus);
-        it->setNotes(newNotes);
+        if (!newName.empty()) it->setName(newName);
+        if (!newPhone.empty()) it->setPhone(newPhone);
+        if (!newEmail.empty()) it->setEmail(newEmail);
+        if (!newDob.empty()) it->setDob(newDob);
+        if (!newGender.empty()) it->setGender(newGender);
+        if (!newStatus.empty()) it->setStatus(newStatus);
+        if (!newNotes.empty()) it->setNotes(newNotes);
+
         FileManager fileManager;
         fileManager.saveContacts(dataFile, contacts);
         Database db("contacts.db");
         db.connect();
-        db.updateContact(oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes, it->getProfession(), it->getCompany(), it->getJobPosition(), it->getCompanyAddress(), it->getOfficePhone());
+        db.updateContact(oldName, it->getName(), it->getPhone(), it->getEmail(), it->getDob(), it->getGender(), it->getStatus(), it->getNotes(), it->getProfession(), it->getCompany(), it->getJobPosition(), it->getCompanyAddress(), it->getOfficePhone());
         db.disconnect();
         return true;
     }

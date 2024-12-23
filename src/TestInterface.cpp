@@ -155,6 +155,41 @@ void TestInterface::handleChoice(int choice, ContactManager& manager, Search& se
             std::cout << "Contatti importati con successo da " << filename << std::endl;
             break;
         }
+        case 8: {
+            std::string oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes;
+            std::cout << "\n=== Modifica Contatto ===\n";
+            std::cout << "Nome del contatto da modificare: ";
+            std::cin.ignore();
+            std::getline(std::cin, oldName);
+
+            const Contact* contact = search.searchByName(manager.contacts, oldName);
+            if (contact == nullptr) {
+                std::cout << "Contatto non trovato.\n";
+                break;
+            }
+
+            std::cout << "Nuovo nome (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newName);
+            std::cout << "Nuovo telefono (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newPhone);
+            std::cout << "Nuova email (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newEmail);
+            std::cout << "Nuova data di nascita (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newDob);
+            std::cout << "Nuovo genere (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newGender);
+            std::cout << "Nuovo stato (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newStatus);
+            std::cout << "Nuove note (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newNotes);
+
+            if (manager.editContact(oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes)) {
+                std::cout << "Contatto aggiornato con successo.\n";
+            } else {
+                std::cout << "Errore durante l'aggiornamento del contatto.\n";
+            }
+            break;
+        }
         case 0:
             std::cout << "Uscita...\n";
             break;
