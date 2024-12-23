@@ -53,6 +53,9 @@ public:
     // Additional method to find duplicates
     std::vector<Contact> findDuplicates(const std::string& name, const std::string& phone, const std::string& email) const;
 
+    // Statistics
+    void generateStatistics() const;
+
 private:
     std::vector<Contact> contacts;
     std::string dataFile = "contacts.txt";

@@ -11,6 +11,7 @@ void displayMenu() {
             << "2. Visualizza tutti i contatti\n"  // View all contacts
             << "3. Ordina contatti\n"  // Sort contacts
             << "4. Filtra contatti\n"  // Filter contacts
+            << "5. Statistiche\n"  // Statistics
             << "0. Esci\n"  // Exit
             << "Scelta: ";
 }
@@ -147,6 +148,13 @@ void handelChoice(int choice, ContactManager& manager) {
                 }
                 break;
             }
+            case 5: {
+                // Generate and display statistics
+                manager.generateStatistics();
+                break;
+            }
+            default:
+                std::cout << "Scelta non valida. Riprovare.\n";
         }
 }
 
