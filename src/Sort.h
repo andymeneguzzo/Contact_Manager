@@ -15,6 +15,10 @@ public:
     void sortByProfession(std::vector<Contact>& contacts);
     void sortByCompany(std::vector<Contact>& contacts);
     void sortByJobPosition(std::vector<Contact>& contacts);
+    void sortByCompanyAddress(std::vector<Contact>& contacts);
+    void sortByOfficePhone(std::vector<Contact>& contacts);
+    void sortByCategory(std::vector<Contact>& contacts);
+    void sortByGroup(std::vector<Contact>& contacts);
 };
 
 #endif // SORT_H

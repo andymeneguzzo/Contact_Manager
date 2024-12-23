@@ -54,3 +54,27 @@ void Sort::sortByJobPosition(std::vector<Contact>& contacts) {
         return a.getJobPosition() < b.getJobPosition();
     });
 }
+
+void Sort::sortByCompanyAddress(std::vector<Contact>& contacts) {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getCompanyAddress() < b.getCompanyAddress();
+    });
+}
+
+void Sort::sortByOfficePhone(std::vector<Contact>& contacts) {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getOfficePhone() < b.getOfficePhone();
+    });
+}
+
+void Sort::sortByCategory(std::vector<Contact>& contacts) {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getCategory() < b.getCategory();
+    });
+}
+
+void Sort::sortByGroup(std::vector<Contact>& contacts) {
+    std::sort(contacts.begin(), contacts.end(), [](const Contact& a, const Contact& b) {
+        return a.getGroup() < b.getGroup();
+    });
+}
