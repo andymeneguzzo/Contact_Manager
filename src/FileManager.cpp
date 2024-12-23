@@ -24,18 +24,35 @@ void FileManager::saveContacts(const std::string& filename, const std::vector<Co
              << contact.getCompany() << " "
              << contact.getJobPosition() << " "
              << contact.getCompanyAddress() << " "
-             << contact.getOfficePhone() << std::endl;
+             << contact.getOfficePhone() << " "
+             << contact.getCategory() << " "
+             << contact.getGroup() << std::endl;
     }
 
     file.close();
 }
 
-std::vector<Contact> FileManager::loadContacts(const std::string& filename) {
-
+std::vector<Contact> FileManager::loadContacts(const std::string& filename) const {
     std::vector<Contact> contacts;
-    // Implementation to load contacts from file
-    return contacts;
+    std::ifstream file(filename);
 
+    if (!file.is_open()) {
+        std::cerr << "Could not open file: " << filename << std::endl;
+        return contacts;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone, category, group;
+
+        ss >> name >> phone >> email >> dob >> gender >> status >> notes >> profession >> company >> jobPosition >> companyAddress >> officePhone >> category >> group;
+
+        contacts.emplace_back(name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone, category, group);
+    }
+
+    file.close();
+    return contacts;
 }
 
 void FileManager::exportToCSV(const std::string& filename, const std::vector<Contact>& contacts) const {
@@ -47,7 +64,7 @@ void FileManager::exportToCSV(const std::string& filename, const std::vector<Con
     }
 
     // Write in CSV header
-    file << "Name,Phone,Email,Dob,Gender,Status,Notes,Profession,Company,JobPosition,CompanyAddress,OfficePhone\n";
+    file << "Name,Phone,Email,Dob,Gender,Status,Notes,Profession,Company,JobPosition,CompanyAddress,OfficePhone,Category,Group\n";
 
     // Write contact data
     for (const auto& contact : contacts) {
@@ -62,7 +79,9 @@ void FileManager::exportToCSV(const std::string& filename, const std::vector<Con
              << contact.getCompany() << ","
              << contact.getJobPosition() << ","
              << contact.getCompanyAddress() << ","
-             << contact.getOfficePhone() << "\n";
+             << contact.getOfficePhone() << ","
+             << contact.getCategory() << ","
+             << contact.getGroup() << "\n";
     }
 
     file.close();
@@ -83,7 +102,7 @@ std::vector<Contact> FileManager::importFromCSV(const std::string& filename) con
 
     while (std::getline(file, line)) {
         std::stringstream ss(line);
-        std::string name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone;
+        std::string name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone, category, group;
 
         std::getline(ss, name, ',');
         std::getline(ss, phone, ',');
@@ -97,12 +116,12 @@ std::vector<Contact> FileManager::importFromCSV(const std::string& filename) con
         std::getline(ss, jobPosition, ',');
         std::getline(ss, companyAddress, ',');
         std::getline(ss, officePhone, ',');
+        std::getline(ss, category, ',');
+        std::getline(ss, group, ',');
 
-        contacts.emplace_back(name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone);
+        contacts.emplace_back(name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone, category, group);
     }
 
     file.close();
     return contacts;
 }
-
-
