@@ -16,6 +16,10 @@ public:
     std::vector<Contact> filterByProfession(const std::vector<Contact>& contacts, const std::string& profession) const;
     std::vector<Contact> filterByCompany(const std::vector<Contact>& contacts, const std::string& company) const;
     std::vector<Contact> filterByJobPosition(const std::vector<Contact>& contacts, const std::string& position) const;
+    std::vector<Contact> filterByCompanyAddress(const std::vector<Contact>& contacts, const std::string& companyAddress) const;
+    std::vector<Contact> filterByOfficePhone(const std::vector<Contact>& contacts, const std::string& officePhone) const;
+    std::vector<Contact> filterByCategory(const std::vector<Contact>& contacts, const std::string& category) const;
+    std::vector<Contact> filterByGroup(const std::vector<Contact>& contacts, const std::string& group) const;
 };
 
 #endif // FILTER_H

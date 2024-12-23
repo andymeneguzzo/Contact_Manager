@@ -72,3 +72,35 @@ std::vector<Contact> Filter::filterByJobPosition(const std::vector<Contact>& con
     });
     return result;
 }
+
+std::vector<Contact> Filter::filterByCompanyAddress(const std::vector<Contact>& contacts, const std::string& companyAddress) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&companyAddress](const Contact& contact) {
+        return contact.getCompanyAddress() == companyAddress;
+    });
+    return result;
+}
+
+std::vector<Contact> Filter::filterByOfficePhone(const std::vector<Contact>& contacts, const std::string& officePhone) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&officePhone](const Contact& contact) {
+        return contact.getOfficePhone() == officePhone;
+    });
+    return result;
+}
+
+std::vector<Contact> Filter::filterByCategory(const std::vector<Contact>& contacts, const std::string& category) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&category](const Contact& contact) {
+        return contact.getCategory() == category;
+    });
+    return result;
+}
+
+std::vector<Contact> Filter::filterByGroup(const std::vector<Contact>& contacts, const std::string& group) const {
+    std::vector<Contact> result;
+    std::copy_if(contacts.begin(), contacts.end(), std::back_inserter(result), [&group](const Contact& contact) {
+        return contact.getGroup() == group;
+    });
+    return result;
+}
