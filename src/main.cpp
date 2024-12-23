@@ -9,6 +9,8 @@
 int main() {
     // Create a ContactManager object to manage contacts
     ContactManager manager;
+    
+    // Create a TestInterface object to handle user interactions
     TestInterface interface;
     int choice;
     
@@ -17,14 +19,19 @@ int main() {
     db.connect();
 
     do {
+        // Display the menu to the user
         interface.displayMenu();
+        
+        // Get the user's choice
         std::cin >> choice;
         std::cin.ignore();  // Ignore the newline character left in the input buffer
 
+        // Handle the user's choice
         interface.handleChoice(choice, manager);
     } while (choice != 0);  // Repeat until user chooses to exit
 
     // Disconnect from the database
     db.disconnect();
+    
     return 0;
 }
