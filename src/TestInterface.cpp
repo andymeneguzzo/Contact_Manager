@@ -23,6 +23,7 @@ void TestInterface::handleChoice(int choice, ContactManager& manager, Search& se
         case 1: {
             std::string name, phone, email, dob, gender, status, notes;
             std::string profession, company, jobPosition, companyAddress, officePhone;
+            std::string category, group;
 
             std::cout << "\n=== Inserimento Nuovo Contatto ===\n";
             std::cout << "Nome: ";
@@ -49,6 +50,10 @@ void TestInterface::handleChoice(int choice, ContactManager& manager, Search& se
             std::getline(std::cin, companyAddress);
             std::cout << "Telefono ufficio: ";
             std::getline(std::cin, officePhone);
+            std::cout << "Categoria: ";
+            std::getline(std::cin, category);
+            std::cout << "Gruppo: ";
+            std::getline(std::cin, group);
 
             std::vector<Contact> duplicates = manager.findDuplicates(name, phone, email);
             if (!duplicates.empty()) {
@@ -71,7 +76,7 @@ void TestInterface::handleChoice(int choice, ContactManager& manager, Search& se
             }
 
             manager.addContact(name, phone, email, dob, gender, status, notes,
-                               profession, company, jobPosition, companyAddress, officePhone);
+                               profession, company, jobPosition, companyAddress, officePhone, category, group);
             break;
         }
         case 2:
@@ -157,6 +162,7 @@ void TestInterface::handleChoice(int choice, ContactManager& manager, Search& se
         }
         case 8: {
             std::string oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes;
+            std::string newProfession, newCompany, newJobPosition, newCompanyAddress, newOfficePhone, newCategory, newGroup;
             std::cout << "\n=== Modifica Contatto ===\n";
             std::cout << "Nome del contatto da modificare: ";
             std::cin.ignore();
@@ -182,8 +188,23 @@ void TestInterface::handleChoice(int choice, ContactManager& manager, Search& se
             std::getline(std::cin, newStatus);
             std::cout << "Nuove note (lascia vuoto per mantenere invariato): ";
             std::getline(std::cin, newNotes);
+            std::cout << "Nuova professione (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newProfession);
+            std::cout << "Nuova azienda (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newCompany);
+            std::cout << "Nuova posizione lavorativa (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newJobPosition);
+            std::cout << "Nuovo indirizzo azienda (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newCompanyAddress);
+            std::cout << "Nuovo telefono ufficio (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newOfficePhone);
+            std::cout << "Nuova categoria (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newCategory);
+            std::cout << "Nuovo gruppo (lascia vuoto per mantenere invariato): ";
+            std::getline(std::cin, newGroup);
 
-            if (manager.editContact(oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes)) {
+            if (manager.editContact(oldName, newName, newPhone, newEmail, newDob, newGender, newStatus, newNotes,
+                                    newProfession, newCompany, newJobPosition, newCompanyAddress, newOfficePhone, newCategory, newGroup)) {
                 std::cout << "Contatto aggiornato con successo.\n";
             } else {
                 std::cout << "Errore durante l'aggiornamento del contatto.\n";

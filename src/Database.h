@@ -17,12 +17,13 @@ public:
                     const std::string& dob, const std::string& gender, const std::string& status, 
                     const std::string& notes, const std::string& profession = "",
                     const std::string& company = "", const std::string& jobPosition = "",
-                    const std::string& companyAddress = "", const std::string& officePhone = "");
-    bool updateContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail,
-                       const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes,
-                       const std::string& newProfession, const std::string& newCompany,
-                       const std::string& newJobPosition, const std::string& newCompanyAddress,
-                       const std::string& newOfficePhone);
+                    const std::string& companyAddress = "", const std::string& officePhone = "", const std::string& category = "", const std::string& group = "");
+    
+bool updateContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail,
+                   const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes,
+                   const std::string& newProfession, const std::string& newCompany, const std::string& newJobPosition,
+                   const std::string& newCompanyAddress, const std::string& newOfficePhone, const std::string& newCategory, const std::string& newGroup);
+
     bool removeContact(const std::string& name);
     std::vector<Contact> getAllContacts();
 

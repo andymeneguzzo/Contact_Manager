@@ -22,6 +22,8 @@ void Contact::to_string() const {
               << "\nJob Position: " << jobPosition
               << "\nCompany Address: " << companyAddress
               << "\nOffice Phone: " << officePhone 
+              << "\nCategory: " << category
+              << "\nGroup: " << group
               << std::endl;
 }
 
@@ -58,6 +60,8 @@ std::string Contact::getCompany() const { return company; }
 std::string Contact::getJobPosition() const { return jobPosition; }
 std::string Contact::getCompanyAddress() const { return companyAddress; }
 std::string Contact::getOfficePhone() const { return officePhone; }
+std::string Contact::getCategory() const { return category; }
+std::string Contact::getGroup() const { return group; }
 
 void Contact::setName(const std::string& name) {
     this->name = name;
@@ -92,3 +96,5 @@ void Contact::setCompany(const std::string& company) { this->company = company; 
 void Contact::setJobPosition(const std::string& jobPosition) { this->jobPosition = jobPosition; }
 void Contact::setCompanyAddress(const std::string& companyAddress) { this->companyAddress = companyAddress; }
 void Contact::setOfficePhone(const std::string& officePhone) { this->officePhone = officePhone; }
+void Contact::setCategory(const std::string& category) { this->category = category; }
+void Contact::setGroup(const std::string& group) { this->group = group; }

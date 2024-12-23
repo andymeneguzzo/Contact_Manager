@@ -13,15 +13,16 @@ void ContactManager::addContact(const std::string& name, const std::string& phon
     const std::string& email, const std::string& dob, const std::string& gender, 
     const std::string& status, const std::string& notes, const std::string& profession,
     const std::string& company, const std::string& jobPosition,
-    const std::string& companyAddress, const std::string& officePhone) {
+    const std::string& companyAddress, const std::string& officePhone,
+    const std::string& category, const std::string& group) {
     
     contacts.emplace_back(name, phone, email, dob, gender, status, notes,
-                         profession, company, jobPosition, companyAddress, officePhone);
+                         profession, company, jobPosition, companyAddress, officePhone, category, group);
     FileManager fileManager;
     fileManager.saveContacts(dataFile, contacts);
     Database db("contacts.db");
     db.connect();
-    db.addContact(name, phone, email, dob, gender, status, notes);
+    db.addContact(name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone, category, group);
     db.disconnect();
 }
 
@@ -37,7 +38,7 @@ void ContactManager::displayContacts() const {
     }
 }
 
-bool ContactManager::editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail, const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes) {
+bool ContactManager::editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail, const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes, const std::string& newProfession, const std::string& newCompany, const std::string& newJobPosition, const std::string& newCompanyAddress, const std::string& newOfficePhone, const std::string& newCategory, const std::string& newGroup) {
     auto it = std::find_if(contacts.begin(), contacts.end(), [&oldName](const Contact& contact) {
         return contact.getName() == oldName;
     });
@@ -50,12 +51,19 @@ bool ContactManager::editContact(const std::string& oldName, const std::string& 
         if (!newGender.empty()) it->setGender(newGender);
         if (!newStatus.empty()) it->setStatus(newStatus);
         if (!newNotes.empty()) it->setNotes(newNotes);
+        if (!newProfession.empty()) it->setProfession(newProfession);
+        if (!newCompany.empty()) it->setCompany(newCompany);
+        if (!newJobPosition.empty()) it->setJobPosition(newJobPosition);
+        if (!newCompanyAddress.empty()) it->setCompanyAddress(newCompanyAddress);
+        if (!newOfficePhone.empty()) it->setOfficePhone(newOfficePhone);
+        if (!newCategory.empty()) it->setCategory(newCategory);
+        if (!newGroup.empty()) it->setGroup(newGroup);
 
         FileManager fileManager;
         fileManager.saveContacts(dataFile, contacts);
         Database db("contacts.db");
         db.connect();
-        db.updateContact(oldName, it->getName(), it->getPhone(), it->getEmail(), it->getDob(), it->getGender(), it->getStatus(), it->getNotes(), it->getProfession(), it->getCompany(), it->getJobPosition(), it->getCompanyAddress(), it->getOfficePhone());
+        db.updateContact(oldName, it->getName(), it->getPhone(), it->getEmail(), it->getDob(), it->getGender(), it->getStatus(), it->getNotes(), it->getProfession(), it->getCompany(), it->getJobPosition(), it->getCompanyAddress(), it->getOfficePhone(), it->getCategory(), it->getGroup());
         db.disconnect();
         return true;
     }

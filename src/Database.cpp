@@ -38,7 +38,9 @@ void Database::createTable() {
                       "company TEXT,"
                       "jobPosition TEXT,"
                       "companyAddress TEXT,"
-                      "officePhone TEXT);";
+                      "officePhone TEXT,"
+                      "category TEXT,"
+                      "group TEXT);";
 
     char* errMsg;
     if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
@@ -51,7 +53,7 @@ bool Database::addContact(const std::string& name, const std::string& phone, con
                           const std::string& dob, const std::string& gender, const std::string& status,
                           const std::string& notes, const std::string& profession, const std::string& company,
                           const std::string& jobPosition, const std::string& companyAddress,
-                          const std::string& officePhone) {
+                          const std::string& officePhone, const std::string& category, const std::string& group) {
     const char* sql = "INSERT INTO contacts (name, phone, email, dob, gender, status, notes, "
                       "profession, company, jobPosition, companyAddress, officePhone) "
                       "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -88,9 +90,9 @@ bool Database::addContact(const std::string& name, const std::string& phone, con
 bool Database::updateContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail,
                              const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes,
                              const std::string& newProfession, const std::string& newCompany, const std::string& newJobPosition,
-                             const std::string& newCompanyAddress, const std::string& newOfficePhone) {
+                             const std::string& newCompanyAddress, const std::string& newOfficePhone, const std::string& newCategory, const std::string& newGroup) {
     const char* sql = "UPDATE contacts SET name = ?, phone = ?, email = ?, dob = ?, gender = ?, status = ?, notes = ?, "
-                      "profession = ?, company = ?, jobPosition = ?, companyAddress = ?, officePhone = ? WHERE name = ?;";
+                      "profession = ?, company = ?, jobPosition = ?, companyAddress = ?, officePhone = ?, category = ?, group = ? WHERE name = ?;";
     sqlite3_stmt* stmt;
 
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
@@ -110,7 +112,9 @@ bool Database::updateContact(const std::string& oldName, const std::string& newN
     sqlite3_bind_text(stmt, 10, newJobPosition.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 11, newCompanyAddress.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 12, newOfficePhone.c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 13, oldName.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 13, newCategory.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 14, newGroup.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 15, oldName.c_str(), -1, SQLITE_STATIC);
 
     if (sqlite3_step(stmt) != SQLITE_DONE) {
         std::cerr << "Failed to execute statement: " << sqlite3_errmsg(db) << std::endl;
