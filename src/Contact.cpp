@@ -5,10 +5,9 @@ Contact::Contact(const std::string& name, const std::string& phone, const std::s
                 const std::string& dob, const std::string& gender, const std::string& status, 
                 const std::string& notes, const std::string& profession, const std::string& company,
                 const std::string& jobPosition, const std::string& companyAddress, 
-                const std::string& officePhone) 
+                const std::string& officePhone, const std::string& category, const std::string& group) 
       : name(name), phone(phone), email(email), dob(dob), gender(gender), status(status), 
-      notes(notes), profession(profession), company(company), jobPosition(jobPosition),
-      companyAddress(companyAddress), officePhone(officePhone) {}
+      notes(notes), profession(profession), company(company), jobPosition(jobPosition), companyAddress(companyAddress), officePhone(officePhone), category(category), group(group) {}
 
 void Contact::to_string() const {
     std::cout << "Name: " << name 
