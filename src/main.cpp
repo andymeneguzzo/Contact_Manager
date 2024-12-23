@@ -49,6 +49,29 @@ void handelChoice(int choice, ContactManager& manager) {
                 std::cout << "Telefono ufficio: ";
                 std::getline(std::cin, officePhone);
 
+                // Duplicate check and handling
+                std::vector<Contact> duplicates = manager.findDuplicates(name, phone, email);
+                if(!duplicates.empty()) {
+                    std::cout << "\nAttenzione, sono stati rilevati contatti duplicati:\n";
+                    for(const auto& dup : duplicates) {
+                        dup.to_string();
+                        std::cout << "------------------------\n";
+                    }
+                    std::string risposta;
+                    std::cout << "Vuoi continuare con l'inserimento? (s/n): ";
+                    std::getline(std::cin, risposta);
+                    if(risposta != "s" || risposta != "S") {
+                        std::cout << "Inserimento annullato\n";
+                        break;
+                    }
+                }
+
+                // Unique identifier for the contact requested
+                std::cout << "Inserisci un identificatore unico per distinguere il contatto (es. numero o caratteri speciali): ";
+                std::string identificatore;
+                std::getline(std::cin, identificatore);
+                name += identificatore;
+
                 // Add the new contact to the manager
                 manager.addContact(name, phone, email, dob, gender, status, notes,
                                 profession, company, jobPosition, companyAddress, officePhone);
@@ -140,7 +163,7 @@ int main() {
         displayMenu();
         std::cin >> choice;
         std::cin.ignore();  // Ignore the newline character left in the input buffer
-        
+
         handelChoice(choice, manager);
     } while (choice != 0);  // Repeat until user chooses to exit
 

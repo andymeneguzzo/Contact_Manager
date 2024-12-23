@@ -50,6 +50,9 @@ public:
     std::vector<Contact> filterByCompany(const std::string& company) const;
     std::vector<Contact> filterByJobPosition(const std::string& position) const;
 
+    // Additional method to find duplicates
+    std::vector<Contact> findDuplicates(const std::string& name, const std::string& phone, const std::string& email) const;
+
 private:
     std::vector<Contact> contacts;
     std::string dataFile = "contacts.txt";

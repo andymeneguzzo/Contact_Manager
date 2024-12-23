@@ -245,3 +245,14 @@ std::vector<Contact> ContactManager::filterByJobPosition(const std::string& posi
     });
     return result;
 }
+
+std::vector<Contact> ContactManager::findDuplicates(const std::string& name, const std::string& phone, const std::string& email) const {
+    std::vector<Contact> duplicates;
+
+    for(const auto& contact : contacts) {
+        if (contact.getName() == name || contact.getPhone() == phone || contact.getEmail() == email) {
+            duplicates.push_back(contact);
+        }
+    }
+    return duplicates;
+}
