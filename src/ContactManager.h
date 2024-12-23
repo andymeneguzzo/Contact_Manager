@@ -39,6 +39,7 @@ public:
 
     // Statistics
     void generateStatistics() const;
+    void exportToCSV(const std::string& filename) const;
 
 private:
     std::string dataFile = "contacts.txt";
