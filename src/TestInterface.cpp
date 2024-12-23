@@ -13,6 +13,7 @@ void TestInterface::displayMenu() const {
               << "5. Statistiche\n"
               << "6. Esporta contatti in CSV\n"
               << "7. Importa contatti da CSV\n"
+              << "8. Modifica contatto\n"
               << "0. Esci\n"
               << "Scelta: ";
 }
