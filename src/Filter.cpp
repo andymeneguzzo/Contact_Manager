@@ -1,7 +1,3 @@
-// Questo file è stato separato in due classi: Search e FileManager. 
-// La classe Filter rimane responsabile per il filtraggio dei contatti. 
-// Di seguito è riportata l'implementazione della classe Filter.
-
 #include "Filter.h"
 #include <algorithm>
 

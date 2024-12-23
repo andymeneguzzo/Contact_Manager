@@ -12,11 +12,12 @@ void TestInterface::displayMenu() const {
               << "4. Filtra contatti\n"
               << "5. Statistiche\n"
               << "6. Esporta contatti in CSV\n"
+              << "7. Importa contatti da CSV\n"
               << "0. Esci\n"
               << "Scelta: ";
 }
 
-void TestInterface::handleChoice(int choice, ContactManager& manager, Search& search) const {
+void TestInterface::handleChoice(int choice, ContactManager& manager, Search& search, FileManager& fileManager) const {
     switch (choice) {
         case 1: {
             std::string name, phone, email, dob, gender, status, notes;
@@ -139,7 +140,18 @@ void TestInterface::handleChoice(int choice, ContactManager& manager, Search& se
             std::string filename;
             std::cout << "Inserisci il nome del file CSV: ";
             std::getline(std::cin, filename);
-            manager.fileManager.exportToCSV(filename);
+            manager.fileManager.exportToCSV(filename, manager.contacts);
+            break;
+        }
+        case 7: {
+            std::string filename;
+            std::cout << "Inserisci il nome del file CSV: ";
+            std::getline(std::cin, filename);
+            std::vector<Contact> importedContacts = fileManager.importFromCSV(filename);
+            for (const auto& contact : importedContacts) {
+                manager.addContact(contact.getName(), contact.getPhone(), contact.getEmail(), contact.getDob(), contact.getGender(), contact.getStatus(), contact.getNotes(), contact.getProfession(), contact.getCompany(), contact.getJobPosition(), contact.getCompanyAddress(), contact.getOfficePhone());
+            }
+            std::cout << "Contatti importati con successo da " << filename << std::endl;
             break;
         }
         case 0:

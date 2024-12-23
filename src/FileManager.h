@@ -10,6 +10,7 @@ public:
     void saveContacts(const std::string& filename, const std::vector<Contact>& contacts) const;
     std::vector<Contact> loadContacts(const std::string& filename);
     void exportToCSV(const std::string& filename, const std::vector<Contact>& contacts) const;
+    std::vector<Contact> importFromCSV(const std::string& filename) const;
 };
 
 #endif // FILEMANAGER_H

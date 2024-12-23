@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <sstream>
 #include "Contact.h"
 
 void FileManager::saveContacts(const std::string& filename, const std::vector<Contact>& contacts) const {
@@ -65,5 +66,43 @@ void FileManager::exportToCSV(const std::string& filename, const std::vector<Con
     }
 
     file.close();
-    std::cout << "Contacts exported successfully to " << filename << std::endl;
+    std::cout << "Contacts exported successfully to " << filename << std::endl;   
 }
+
+std::vector<Contact> FileManager::importFromCSV(const std::string& filename) const {
+    std::vector<Contact> contacts;
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+        std::cerr << "Could not open file: " << filename << std::endl;
+        return contacts;
+    }
+
+    std::string line;
+    std::getline(file, line); // Salta l'intestazione
+
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone;
+
+        std::getline(ss, name, ',');
+        std::getline(ss, phone, ',');
+        std::getline(ss, email, ',');
+        std::getline(ss, dob, ',');
+        std::getline(ss, gender, ',');
+        std::getline(ss, status, ',');
+        std::getline(ss, notes, ',');
+        std::getline(ss, profession, ',');
+        std::getline(ss, company, ',');
+        std::getline(ss, jobPosition, ',');
+        std::getline(ss, companyAddress, ',');
+        std::getline(ss, officePhone, ',');
+
+        contacts.emplace_back(name, phone, email, dob, gender, status, notes, profession, company, jobPosition, companyAddress, officePhone);
+    }
+
+    file.close();
+    return contacts;
+}
+
+
