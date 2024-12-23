@@ -5,9 +5,17 @@
 #include <string>
 #include "Contact.h"
 #include "Database.h"
+#include "Sort.h"
+#include "Filter.h"
+#include "Statistics.h"
 
 class ContactManager {
 public:
+    Sort sorter;
+    Filter filter;
+    Statistics stats;
+    std::vector<Contact> contacts;
+
     ContactManager();
     ~ContactManager();
 
@@ -26,30 +34,6 @@ public:
     void loadContacts(const std::string& filename);
     void saveContacts(const std::string& filename) const;
 
-    // New methods for sorting and filtering
-    void sortByName();
-    void sortByPhone();
-    void sortByEmail();
-    void sortByDob();
-    void sortByGender();
-    void sortByStatus();
-    std::vector<Contact> filterByName(const std::string& name) const;
-    std::vector<Contact> filterByPhone(const std::string& phone) const;
-    std::vector<Contact> filterByEmail(const std::string& email) const;
-    std::vector<Contact> filterByDob(const std::string& dob) const;
-    std::vector<Contact> filterByGender(const std::string& gender) const;
-    std::vector<Contact> filterByStatus(const std::string& status) const;
-
-    // Additional sorting methods
-    void sortByProfession();
-    void sortByCompany();
-    void sortByJobPosition();
-
-    // Additional filtering methods
-    std::vector<Contact> filterByProfession(const std::string& profession) const;
-    std::vector<Contact> filterByCompany(const std::string& company) const;
-    std::vector<Contact> filterByJobPosition(const std::string& position) const;
-
     // Additional method to find duplicates
     std::vector<Contact> findDuplicates(const std::string& name, const std::string& phone, const std::string& email) const;
 
@@ -57,7 +41,6 @@ public:
     void generateStatistics() const;
 
 private:
-    std::vector<Contact> contacts;
     std::string dataFile = "contacts.txt";
 };
 

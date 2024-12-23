@@ -1,6 +1,10 @@
 #include "Contact.h"
 #include "ContactManager.h"
 #include "Database.h"
+#include "Sort.h"
+#include "Filter.h"
+#include "Statistics.h"
+
 #include <iostream>
 #include <string>
 
@@ -97,13 +101,13 @@ void handelChoice(int choice, ContactManager& manager) {
                 // Sort contacts based on user's choice
                 switch (sortChoice) {
                     case 1:
-                        manager.sortByProfession();
+                        manager.sorter.sortByProfession(manager.contacts);
                         break;
                     case 2:
-                        manager.sortByCompany();
+                        manager.sorter.sortByCompany(manager.contacts);
                         break;
                     case 3:
-                        manager.sortByJobPosition();
+                        manager.sorter.sortByJobPosition(manager.contacts);
                         break;
                 }
                 // Display sorted contacts
@@ -130,13 +134,13 @@ void handelChoice(int choice, ContactManager& manager) {
                 std::vector<Contact> filteredContacts;
                 switch (filterChoice) {
                     case 1:
-                        filteredContacts = manager.filterByProfession(filterValue);
+                        filteredContacts = manager.filter.filterByProfession(manager.contacts, filterValue);
                         break;
                     case 2:
-                        filteredContacts = manager.filterByCompany(filterValue);
+                        filteredContacts = manager.filter.filterByCompany(manager.contacts, filterValue);
                         break;
                     case 3:
-                        filteredContacts = manager.filterByJobPosition(filterValue);
+                        filteredContacts = manager.filter.filterByJobPosition(manager.contacts, filterValue);
                         break;
                 }
 
@@ -150,7 +154,7 @@ void handelChoice(int choice, ContactManager& manager) {
             }
             case 5: {
                 // Generate and display statistics
-                manager.generateStatistics();
+                manager.stats.generateStatistics(manager.contacts);
                 break;
             }
             default:
