@@ -4,28 +4,19 @@
 #include <iostream>
 #include <string>
 
-int main() {
-    // Create a ContactManager object to manage contacts
-    ContactManager manager;
-    
-    // Create a Database object and connect to the database
-    Database db("contacts.db");
-    db.connect();
+void displayMenu() {
+    // Display the main menu
+    std::cout << "\n=== Contact Manager ===\n"
+            << "1. Inserisci nuovo contatto\n"  // Insert new contact
+            << "2. Visualizza tutti i contatti\n"  // View all contacts
+            << "3. Ordina contatti\n"  // Sort contacts
+            << "4. Filtra contatti\n"  // Filter contacts
+            << "0. Esci\n"  // Exit
+            << "Scelta: ";
+}
 
-    int choice;
-    do {
-        // Display the main menu
-        std::cout << "\n=== Contact Manager ===\n"
-                  << "1. Inserisci nuovo contatto\n"  // Insert new contact
-                  << "2. Visualizza tutti i contatti\n"  // View all contacts
-                  << "3. Ordina contatti\n"  // Sort contacts
-                  << "4. Filtra contatti\n"  // Filter contacts
-                  << "0. Esci\n"  // Exit
-                  << "Scelta: ";
-        std::cin >> choice;
-        std::cin.ignore();  // Ignore the newline character left in the input buffer
-
-        switch (choice) {
+void handelChoice(int choice, ContactManager& manager) {
+    switch (choice) {
             case 1: {
                 // Variables to store contact details
                 std::string name, phone, email, dob, gender, status, notes;
@@ -134,6 +125,23 @@ int main() {
                 break;
             }
         }
+}
+
+int main() {
+    // Create a ContactManager object to manage contacts
+    ContactManager manager;
+    
+    // Create a Database object and connect to the database
+    Database db("contacts.db");
+    db.connect();
+
+    int choice;
+    do {
+        displayMenu();
+        std::cin >> choice;
+        std::cin.ignore();  // Ignore the newline character left in the input buffer
+        
+        handelChoice(choice, manager);
     } while (choice != 0);  // Repeat until user chooses to exit
 
     // Disconnect from the database
