@@ -1,6 +1,8 @@
 #include "TestInterface.h"
 #include <iostream>
 #include <string>
+#include "ContactManager.h"
+#include "Search.h"
 
 void TestInterface::displayMenu() const {
     std::cout << "\n=== Contact Manager ===\n"
@@ -14,7 +16,7 @@ void TestInterface::displayMenu() const {
               << "Scelta: ";
 }
 
-void TestInterface::handleChoice(int choice, ContactManager& manager) const {
+void TestInterface::handleChoice(int choice, ContactManager& manager, Search& search) const {
     switch (choice) {
         case 1: {
             std::string name, phone, email, dob, gender, status, notes;
@@ -137,7 +139,7 @@ void TestInterface::handleChoice(int choice, ContactManager& manager) const {
             std::string filename;
             std::cout << "Inserisci il nome del file CSV: ";
             std::getline(std::cin, filename);
-            manager.exportToCSV(filename);
+            manager.fileManager.exportToCSV(filename);
             break;
         }
         case 0:

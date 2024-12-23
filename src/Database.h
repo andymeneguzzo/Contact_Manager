@@ -30,7 +30,6 @@ private:
     sqlite3* db;
     std::string dbName;
 
-    bool executeSQL(const std::string& sql);
     void createTable();
 };
 
