@@ -116,6 +116,37 @@ void ContactManager::saveContacts(const std::string& filename) const {
     file.close();
 }
 
+void ContactManager::exportToCSV(const std::string& filename) const {
+    std::ofstream file(filename);
+
+    if(!file.is_open()) {
+        std::cerr << "Could not open file: " << filename << std::endl;
+        return;
+    }
+
+    // Write in CSV header
+    file << "Name,Phone,Email,Dob,Gender,Status,Notes,Profession,Company,JobPosition,CompanyAddress,OfficePhone\n";
+
+    // Write contact data
+    for (const auto& contact : contacts) {
+        file << contact.getName() << ","
+             << contact.getPhone() << ","
+             << contact.getEmail() << ","
+             << contact.getDob() << ","
+             << contact.getGender() << ","
+             << contact.getStatus() << ","
+             << contact.getNotes() << ","
+             << contact.getProfession() << ","
+             << contact.getCompany() << ","
+             << contact.getJobPosition() << ","
+             << contact.getCompanyAddress() << ","
+             << contact.getOfficePhone() << "\n";
+    }
+
+    file.close();
+    std::cout << "Contacts exported successfully to " << filename << std::endl;
+}
+
 std::vector<Contact> ContactManager::findDuplicates(const std::string& name, const std::string& phone, const std::string& email) const {
     std::vector<Contact> duplicates;
 

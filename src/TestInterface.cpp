@@ -9,6 +9,7 @@ void TestInterface::displayMenu() const {
               << "3. Ordina contatti\n"
               << "4. Filtra contatti\n"
               << "5. Statistiche\n"
+              << "6. Esporta contatti in CSV\n"
               << "0. Esci\n"
               << "Scelta: ";
 }
@@ -132,6 +133,13 @@ void TestInterface::handleChoice(int choice, ContactManager& manager) const {
         case 5:
             manager.stats.generateStatistics(manager.contacts);
             break;
+        case 6: {
+            std::string filename;
+            std::cout << "Inserisci il nome del file CSV: ";
+            std::getline(std::cin, filename);
+            manager.exportToCSV(filename);
+            break;
+        }
         case 0:
             std::cout << "Uscita...\n";
             break;

@@ -28,18 +28,21 @@ public:
     bool editContact(const std::string& oldName, const std::string& newName, const std::string& newPhone, const std::string& newEmail,
                      const std::string& newDob, const std::string& newGender, const std::string& newStatus, const std::string& newNotes);
     bool removeContact(const std::string& name);
+    
     const Contact* searchByName(const std::string& name) const;
     const Contact* searchByPhone(const std::string& phone) const;
     const Contact* searchByEmail(const std::string& email) const;
+
     void loadContacts(const std::string& filename);
     void saveContacts(const std::string& filename) const;
+    void exportToCSV(const std::string& filename) const;
 
     // Additional method to find duplicates
     std::vector<Contact> findDuplicates(const std::string& name, const std::string& phone, const std::string& email) const;
 
     // Statistics
     void generateStatistics() const;
-    void exportToCSV(const std::string& filename) const;
+    
 
 private:
     std::string dataFile = "contacts.txt";
